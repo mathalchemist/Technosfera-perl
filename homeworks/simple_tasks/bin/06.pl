@@ -1,31 +1,19 @@
-#!/usr/bin/perl
+#/usr/bin/perl
 
 use strict;
 use warnings;
 
-=encoding UTF8
-=head1 SYNOPSYS
-
-Шифр Цезаря https://ru.wikipedia.org/wiki/%D0%A8%D0%B8%D1%84%D1%80_%D0%A6%D0%B5%D0%B7%D0%B0%D1%80%D1%8F
-
-=head1 encode ($str, $key)
-
-Функция шифрования ASCII строки $str ключем $key.
-Пачатает зашифрованную строку $encoded_str в формате "$encoded_str\n"
-
-Пример:
-
-encode('#abc', 1) - печатает '$bcd'
-
-=cut
 
 sub encode {
-    my ($str, $key) = @_;
+    my $str = shift;
+    my $key = shift;
     my $encoded_str = '';
-
-    # ...
-    # Алгоритм шифрования
-    # ...
+    my @letters = split //, $str;
+    for $_ (@letters)
+       {
+            $_ = chr((ord($_)+$key)%128);
+       }
+    $encoded_str = join('',@letters);
 
     print "$encoded_str\n";
 }
@@ -42,14 +30,20 @@ decode('$bcd', 1) - печатает '#abc'
 =cut
 
 sub decode {
-    my ($encoded_str, $key) = @_;
-    my $str = '';
+    my $str = shift;
+    my $key = shift;
+    my $decoded_str = '';
+    my @letters = split //, $str;
+    for $_ (@letters)
+       {
+            $_ = chr((ord($_)-$key))%128;
+       }
+    $decoded_str = join('',@letters);
+    $decoded_str = '#'.$decoded_str;
 
-    # ...
-    # Алгоритм дешифрования
-    # ...
+    print "$decoded_str\n";
 
-    print "$str\n";
 }
-
+#encode ('Hello world!',  259);
+#encode ('Howto learn perl?', 128);
 1;

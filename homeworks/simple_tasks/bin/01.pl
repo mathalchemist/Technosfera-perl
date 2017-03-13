@@ -1,42 +1,50 @@
 #!/usr/bin/perl
-
+use Math::complex;
 use strict;
 use warnings;
+use 5.010;
 
-=encoding UTF8
-=head1 SYNOPSYS
-
-Вычисление корней квадратного уравнения a*x**2+b*x+c=0.
-
-=head1 run ($a_value, $b_value, $c_value)
-
-Функция вычисления корней квадратного уравнения.
-Принимает на вход  коэфиценты квадратного уравнения $a_value, $b_value, $c_value.
-Вычисляет корни в переменные $x1 и $x2.
-Печатает результат вычисления в виде строки "$x1, $x2\n".
-Если уравнение не имеет решания должно быть напечатано "No solution!\n"
-
-Примеры: 
-
-run(1, 0, 0) - печатает "0, 0\n"
-
-run(1, 1, 0) - печатает "0, -1\n"
-
-run(1, 1, 1) - печатает "No solution!\n"
-
-=cut
-
-sub run {
-    my ($a_value, $b_value, $c_value) = @_;
-
-    my $x1 = undef;
-    my $x2 = undef;
-
-    #...
-    #Вычисление корней
-    #...
-
-    print "$x1, $x2\n";
-}
-
+    sub run {
+         my ($a_value, $b_value, $c_value)=@_;
+#print "a_value, b_value, c_value";
+=beg        my $a_value = shift;
+        my $b_value = shift;
+        my $c_value = shift;
+=cut        
+#      print sprintf("%d",$b_value);
+        my $x1 = undef;
+        my $x2 = undef;
+        my $deter = ($b_value**2 - (4*$a_value*$c_value));
+#        my $deter = $b_value**2;
+#       $deter-=4*$a_value*$c_value;
+#        print sprintf("%g, \n", $deter);
+        if(($deter <0)||($a_value==0))
+        {
+            print"No solution!\n";
+        }
+        elsif ($deter == 0)
+        {
+#            say ("first");
+#            print "1\n";
+            $x1=$x2=(-$b_value)/(2*$a_value);
+            print sprintf("%g, %g\n", $x1, $x2);
+        }
+        else
+        {
+#            say "2";
+#            print "deter\n";
+            my $div = $a_value*2;
+#           print "$div \n";
+            my $sqd =sqrt($deter);
+#            print "2\n";
+            my $sum1 = -$b_value+$sqd;
+            my $sum2 = -$b_value-$sqd;
+            $x1 = $sum1/(2*$a_value);
+            $x2 = $sum2/(2*$a_value);
+#      print sprintf("%g, %g\n", $x1, $x2);
+            print sprintf("%g, %g\n", $x1, $x2);
+        }
+    }
 1;
+#run(2,4,2);
+#run(-2,0,128)
