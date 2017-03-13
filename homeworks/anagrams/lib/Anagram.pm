@@ -1,9 +1,11 @@
 package Anagram;
 
 use 5.010;
+use utf8;
 use strict;
 use warnings;
-
+use feature 'unicode_strings';
+use Encode qw(decode encode);
 =encoding UTF8
 
 =head1 SYNOPSIS
@@ -41,11 +43,35 @@ anagram(['пятак', 'ЛиСток', 'пятка', 'стул', 'ПяТаК', '
 
 sub anagram {
     my $words_list = shift;
+    my %dictionary;
+    my $word_arr;
+    
+    for my $word(@$words_list)
+    {
+        $word = lc decode("UTF-8",$word);
+        $word_arr = join "", sort(split //,$word);
+        $dictionary{$word} =  $word_arr;
+    }
+    
     my %result;
+    
+    for my $word(keys %dictionary)
+    {
+#        say $dictionary{$word};
+        my @loc_arr;
+        for my $item(keys %dictionary)
+        {
+            if($dictionary{$item} eq $dictionary{$word})
+            {
+                push @loc_arr, $item;
+                delete $dictionary{$item};
+            }
+        }
+#@result{$word} =  @loc_arr;
+        @loc_arr  = [ map { encode("UTF-8", $_) } @loc_arr];
+        $result{encode("UTF-8",$word)} = \@loc_arr;
+    }
 
-    #
-    # Поиск анограмм
-    #
 
     return \%result;
 }
