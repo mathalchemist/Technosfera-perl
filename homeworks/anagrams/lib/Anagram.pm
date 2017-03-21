@@ -3,75 +3,40 @@ package Anagram;
 use 5.010;
 use utf8;
 use strict;
+#use diagnostics;
 use warnings;
 use feature 'unicode_strings';
 use Encode qw(decode encode);
-=encoding UTF8
-
-=head1 SYNOPSIS
-
-Поиск анаграмм
-
-=head1 anagram($arrayref)
-
-Функцию поиска всех множеств анаграмм по словарю.
-
-Входные данные для функции: ссылка на массив - каждый элемент которого - слово на русском языке в кодировке utf8
-
-Выходные данные: Ссылка на хеш множеств анаграмм.
-
-Ключ - первое встретившееся в словаре слово из множества
-Значение - ссылка на массив, каждый элемент которого слово из множества, в том порядке в котором оно встретилось в словаре в первый раз.
-
-Множества из одного элемента не должны попасть в результат.
-
-Все слова должны быть приведены к нижнему регистру.
-В результирующем множестве каждое слово должно встречаться только один раз.
-Например
-
-anagram(['пятак', 'ЛиСток', 'пятка', 'стул', 'ПяТаК', 'слиток', 'тяпка', 'столик', 'слиток'])
-
-должен вернуть ссылку на хеш
+use List::MoreUtils qw(uniq);
 
 
-{
-    'пятак'  => ['пятак', 'пятка', 'тяпка'],
-    'листок' => ['листок', 'слиток', 'столик'],
+sub normalize {
+    my $word = shift;
+    return (join "", sort(split //,$word));
 }
-
-=cut
 
 sub anagram {
     my $words_list = shift;
     my %dictionary;
-    my $word_arr;
-    
+    @$words_list = map{lc(decode('UTF-8',$_))}@$words_list;
     for my $word(@$words_list)
     {
-        $word = lc decode("UTF-8",$word);
-        $word_arr = join "", sort(split //,$word);
-        $dictionary{$word} =  $word_arr;
+        my $qr = normalize($word); 
+        push @{$dictionary{$qr}}, $word;
     }
     
     my %result;
-    
-    for my $word(keys %dictionary)
+    for my $item (keys %dictionary)
     {
-#        say $dictionary{$word};
-        my @loc_arr;
-        for my $item(keys %dictionary)
+        my $res_key =  $dictionary{$item}->[0];
+        if( scalar(@{$dictionary{$item}})>1) 
         {
-            if($dictionary{$item} eq $dictionary{$word})
-            {
-                push @loc_arr, $item;
-                delete $dictionary{$item};
-            }
+            @{$dictionary{$res_key}} = @{$dictionary{$item}};
+            @{$dictionary{$res_key}} = uniq (sort @{$dictionary{$res_key}});
+            @{$result{encode('UTF-8', $res_key)}} = map{encode('UTF-8',$_)}@{$dictionary{$res_key}}; 
         }
-#@result{$word} =  @loc_arr;
-        @loc_arr  = [ map { encode("UTF-8", $_) } @loc_arr];
-        $result{encode("UTF-8",$word)} = \@loc_arr;
     }
-
+    
 
     return \%result;
 }
