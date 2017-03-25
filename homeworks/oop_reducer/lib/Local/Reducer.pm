@@ -1,5 +1,5 @@
 package Local::Reducer;
-
+use strict;
 
 sub new{
     my ($class, %params) =  @_;
@@ -17,8 +17,8 @@ sub new{
 sub reduce_n{
     my ($self, $n) = @_;
     my $input = $self->{source};
-    for $i (0..n){
-        $str = $input->next;
+    for my $i (0..$n){
+        my $str = $input->next;
         my $tmp =$self->{row_class}->new($str);
         $self->_reduce($tmp);
     }

@@ -1,9 +1,9 @@
 package Local::Source;
-
+use strict;
 
 
 sub new{
-    my ($class, %param) = @_;
+    my ($class, %params) = @_;
     my $object = \%params;
     my $self = bless($object, $class);
     return $self;

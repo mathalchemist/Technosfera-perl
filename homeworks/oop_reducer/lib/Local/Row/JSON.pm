@@ -1,8 +1,9 @@
 package Local::Row::JSON;
 use parent 'Local::Row';
+use strict;
 
 sub new {
-    my ($class, %params) = @_;
+    my ($class, $params) = @_;
     my $log;
     my $valid = eval { $log = JSON::XS->new->utf8->decode($params->{str}); 1 };
         if ($valid) { 
