@@ -14,7 +14,7 @@ exit;
 
 sub parse_file {
     my $file = shift;
-
+    my $line_format = '(^\d+\.){3}\d+)''\['
     # you can put your code here
 
     my $result;

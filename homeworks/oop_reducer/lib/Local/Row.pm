@@ -1,17 +1,15 @@
 package Local::Row;
 
 sub new{
-    my ($self, %params) = @_;
-    bless \%params, $self;
-    $self ->{$source} ->next;
-    $str->{$str} = $self->params;
+    my ($self, $str) = @_;
+    
+    $self ->{$str}= $str;
 }
 
 sub get {
     my ($self, $name, $default) = @_;
-    my %log = %{ $self->{'log'} };
-    if (exists $log{$name}) {
-    return $log{$name};
+    if (exists $self->{str}{$name}) {
+    return $self->{str}{$name};
     } else {
     return $default;
                         }

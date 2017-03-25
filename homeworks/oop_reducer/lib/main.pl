@@ -1,11 +1,11 @@
 use FindBin;
 use DDP;
 use lib "$FindBin::Bin/lib";
-use Local::Reduser::Sum;
+use Local::Reducer::Sum;
 use Local::Source::Array;
 use Local::Row::JSON
 
-my $reducer = Local::Reduser::Sum->new(
+my $reducer = Local::Reducer::Sum->new(
         field => 'price',
         source => Local::Source::Array->new(array => [
                             '{"price": 1}',
@@ -15,4 +15,5 @@ my $reducer = Local::Reduser::Sum->new(
         row_class => 'Local::Row::JSON',
         initial_value => 0,
         );
-$reducer->reduse_n(2)
+$reducer->reduce_n(1);
+1;
