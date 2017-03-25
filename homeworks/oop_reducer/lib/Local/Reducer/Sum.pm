@@ -2,6 +2,7 @@ package Local::Reducer::Sum;
 
 use parent 'Local::Reducer';
 use strict;
+use warnings;
 
 sub _init
 {

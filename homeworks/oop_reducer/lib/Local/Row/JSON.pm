@@ -1,6 +1,7 @@
 package Local::Row::JSON;
 use parent 'Local::Row';
 use strict;
+use warnings;
 
 sub new {
     my ($class, $params) = @_;

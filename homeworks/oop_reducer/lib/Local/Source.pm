@@ -1,5 +1,6 @@
 package Local::Source;
 use strict;
+use warnings;
 
 
 sub new{

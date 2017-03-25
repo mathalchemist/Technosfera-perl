@@ -3,7 +3,9 @@ use DDP;
 use lib "$FindBin::Bin/lib";
 use Local::Reducer::Sum;
 use Local::Source::Array;
-use Local::Row::JSON
+use Local::Row::JSON;
+use strict;
+use warnings;
 
 my $reducer = Local::Reducer::Sum->new(
         field => 'price',

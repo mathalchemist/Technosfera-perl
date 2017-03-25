@@ -1,5 +1,6 @@
 package Local::Reducer;
 use strict;
+use warnings;
 
 sub new{
     my ($class, %params) =  @_;

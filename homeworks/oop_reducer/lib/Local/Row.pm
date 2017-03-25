@@ -1,5 +1,6 @@
 package Local::Row;
 use strict;
+use warnings;
 
 sub new{
     my ($self, $str) = @_;
