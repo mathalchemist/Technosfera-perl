@@ -1,11 +1,12 @@
 package Local::Row;
 use strict;
 use warnings;
+use diagnostics;
 
 sub new{
     my ($self, $str) = @_;
     
-    $self ->{$str}= $str;
+    $self ->{str}= $str;
 }
 
 sub get {

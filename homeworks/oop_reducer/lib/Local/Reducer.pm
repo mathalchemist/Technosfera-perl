@@ -20,7 +20,7 @@ sub reduce_n{
     my $input = $self->{source};
     for my $i (0..$n){
         my $str = $input->next;
-        my $tmp =$self->{row_class}->new($str);
+        my $tmp =($self->{row_class})->new($str);
         $self->_reduce($tmp);
     }
     return $self->{reduced};

@@ -3,6 +3,7 @@ package Local::Reducer::Sum;
 use parent 'Local::Reducer';
 use strict;
 use warnings;
+use diagnostics;
 
 sub _init
 {
@@ -13,7 +14,6 @@ sub _init
 sub _reduce
 {
     my ($self, $tmp) = @_;
-    my $defult = 0;
-    $self->{redused}+=$tmp->get($self->{field}, $defult);
+    return ($self->{reduced})+($tmp->get($self->{field}, 0));
 }
 1;
