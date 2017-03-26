@@ -7,6 +7,7 @@ sub new{
     my ($class, %params) = @_;
     my $object = \%params;
     my $self = bless($object, $class);
+    $self->{count} = 0;
     return $self;
 }
 
@@ -14,7 +15,7 @@ sub new{
 
 sub next{
     my $self = shift;
-    my @arr = $self->{shift};
-    return shift @arr;
+    my $arr = $self->{array};
+    return $arr->[($self->{count})++];
 }
 1;

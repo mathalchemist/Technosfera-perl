@@ -1,12 +1,17 @@
+#! /usr/bin/perl;
 package Local::Row;
 use strict;
 use warnings;
 use diagnostics;
 
 sub new{
-    my ($self, $str) = @_;
-    
-    $self ->{str}= $str;
+    my($self, %params)  = @_;
+    my $object  = \%params;
+    bless $object, $self;
+    die unless defined $self->{str};
+    my $string = $self->parse;
+    $self->{str} = $string;
+    return $self;
 }
 
 sub get {
