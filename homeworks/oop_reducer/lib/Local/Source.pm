@@ -8,6 +8,7 @@ sub new{
     my $object = \%params;
     my $self = bless($object, $class);
     $self->{count} = 0;
+    $self->init;
     return $self;
 }
 

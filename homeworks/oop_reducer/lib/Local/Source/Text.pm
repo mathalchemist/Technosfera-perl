@@ -1,11 +1,17 @@
-package Local::Source::Text
-use parent Local::Source
+package Local::Source::Text;
+use parent 'Local::Source';
+use strict;
+use warnings;
 
 
 
-sub next{
-    my ($self, %text) = @_;
-    if(!$self->{delimiter}) $self->{delimiter} = '\n';
-    split $self->{text}, $self->delimetr;
-    return shift ($self->{array});
+sub init{
+    my $self = shift;
+    if(not defined $self->{delimiter}) 
+    {
+        $self->{delimiter} = '\n';
+    }
+    my @arr = split $self->{delimiter}, $self->{text};
+    $self->{array} = \@arr;
 }
+1;
