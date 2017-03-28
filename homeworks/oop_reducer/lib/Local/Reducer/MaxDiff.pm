@@ -17,10 +17,10 @@ sub _reduce
 {
     my ($self, $str) = @_;
     my $tmp =($self->{row_class})->new(str=>$str);
-    my $val = $tmp->get($self->{field}, 0);
+    my $val = ($tmp->get($self->{top}, 0)) - ($tmp->get($self->{bottom},0));
     if (($self->{reduced})<($val))
     {
-        return ($tmp->get($self->{field}, 0));
+        return $val;
     }
     else
     {

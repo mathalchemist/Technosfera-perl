@@ -25,4 +25,8 @@ sub reduce_n{
     }
     return $self->{reduced};
 }
+sub reduced{
+    my $self = shift;
+    return $self->{reduced};
+}
 1;

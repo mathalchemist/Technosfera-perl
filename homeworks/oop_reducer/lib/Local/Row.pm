@@ -17,15 +17,17 @@ sub new{
         my $string =  $self->{str};
         my $q = $self->parse;
         $self->{str} =$q;
+        return $self;
 }
 
 sub get {
     my ($self, $name, $default) = @_;
-    if (exists $self->{str}->{$name}) {
-    return $self->{str}->{$name};
-    } else {
+    if (exists $self->{str}{$name}) {
+    return $self->{str}{$name};
+    } 
+    else {
     return $default;
-                        }
+    }
 }
 
 1;
